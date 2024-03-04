@@ -15,24 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fox.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="omp.c">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="utils.h">
+    <ClInclude Include="fox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fox.h">
+    <ClInclude Include="matrix.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

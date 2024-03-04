@@ -123,6 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft SDKs\MPI\Include</AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,14 +149,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="fox.c" />
-    <ClCompile Include="main.c" />
-    <ClCompile Include="omp.c" />
-    <ClCompile Include="utils.c" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fox.h" />
-    <ClInclude Include="utils.h" />
+    <ClInclude Include="fox.hpp" />
+    <ClInclude Include="matrix.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

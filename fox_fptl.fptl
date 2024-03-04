@@ -1,0 +1,11 @@
+Scheme factorial
+{
+    factorial = P -> F1, F2;
+    P = (id*0).eq;
+    F1 = 1;
+    F2 = (id * DEC.@).mult;
+    DEC = (id*1).minus;
+}
+
+Application
+%factorial(6)
