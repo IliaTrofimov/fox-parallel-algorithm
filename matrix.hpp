@@ -3,7 +3,7 @@
 #include <iostream>
 #include <ostream>
 
-// Square matrix.
+// Square matrix. OOP wrapper.
 class Matrix {
 private:
     double* _data;
@@ -24,14 +24,15 @@ public:
         delete[] _data;
     }
 
-    // Element at row i and column j. No index checks for perfomance.
-    inline double& at(size_t i, size_t j) {
-        return _data[i * _size + j];
-    }
-
     // Element at given offset.
     inline double& at(size_t idx) {
+        if (idx >= _sizeSqr) throw new std::exception("Matrix index is out of range.");
         return _data[idx];
+    }
+
+    // Element at row i and column j.
+    inline double& at(size_t i, size_t j) {
+        return at(i * _size + j);
     }
 
     // Matrix size.
@@ -42,7 +43,7 @@ public:
     // Print matrix.
     void print(std::ostream& os, const char* name = nullptr) const {
         if (name != nullptr) {
-            os << name << " [" << _size << "x" << _size << "]\n";
+            os << name << " [" << _size << " x " << _size << "]\n";
         }
         for (size_t i = 0; i < _size; ++i) {
             size_t stride = i * _size;

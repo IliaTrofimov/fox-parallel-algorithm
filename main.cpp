@@ -72,6 +72,30 @@ void benchamrk(int min_size, int max_size, int inc) {
             delete pC;
         }
     }
+
+    printf("\nOptimized versions\nDefault*\t\t");
+    for (int size = min_size; size <= max_size; size *= inc) {
+        Matrix A(size, 123), B(size, 131);
+
+        auto t0 = omp_get_wtime();
+        Matrix* pC = prod_opt(&A, &B);
+        printf("%.3f\t", omp_get_wtime() - t0);
+
+        delete pC;
+    }
+
+    for (int i = 1; i * i <= max; i++) {
+        printf("\nOMP* [%d thread]\t", i * i);
+        for (int size = min_size; size <= max_size; size *= inc) {
+            Matrix A(size, 123), B(size, 131);
+
+            auto t0 = omp_get_wtime();
+            Matrix* pC = fox_omp_opt(&A, &B, i * i);
+            printf("%.3f\t", omp_get_wtime() - t0);
+
+            delete pC;
+        }
+    }
     printf("\n");
 }
 
