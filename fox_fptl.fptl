@@ -1,11 +1,95 @@
-Scheme factorial
-{
-    factorial = P -> F1, F2;
-    P = (id*0).eq;
-    F1 = 1;
-    F2 = (id * DEC.@).mult;
-    DEC = (id*1).minus;
-}
+Scheme FoxAlgorithm {
+    N=[1]; fill_a=[2]; fill_b=[3];
+    
+    @ = main;
 
+    // Fill matrix with values: [1] - size; [2] - fill value
+    Fun fill_matr {
+        @ = (([1] * [1]).mul * [2]).arrayCreate;
+    }
+
+    // Print matrix: [1] - matrix; [2] - size
+	Fun print_matr {
+		N = ([2] * 1).sub;		
+		@ = (N * 0).gequal -> 
+            ([1] * N).arrayGet.print * " ".print * ([1] * N).print_matr, [1];
+	}
+
+    // Time elapsed
+    Fun elapsed <function, message> {
+        @ = (getCurrentTime * function).((message*(getCurrentTime*[1]).sub.toString * "\n").add.rawPrint * [2]);
+    }
+    
+    Fun main {
+        //   result  c   a   b blcSz size 
+        @ = (Empty * 0 * 0 * 0 * N * N * A * B).fox_mult;
+        Empty = (N * 0.0).fill_matr;
+        A = (N * fill_a).fill_matr;
+        B = (N * fill_b).fill_matr;
+         
+        
+        Fun fox_mult {
+            result = [1];
+            blockC = [2];
+            blockA = [3];
+            blockB = [4];
+            bSize = [5];
+            size = [6];
+            A = [7];
+            B = [8];
+
+            @ = (bSize*2).equal->(result*blockC*blockA*blockB*bSize*size*A*B).execute,
+            (((((((((((((((result*0*0*0*(bSize*2).div*size*A*B).fox_mult)*
+            0*(bSize*2).div*((bSize*2).div*size).mul*(bSize*2).div*size*A*B).fox_mult)*
+            (bSize*2).div*0*(bSize*2).div*(bSize*2).div*size*A*B).fox_mult)*
+            (bSize*2).div*(bSize*2).div*((bSize*2).div*(size*1).add).mul*(bSize*2).div*size*A*B).fox_mult)*
+            ((bSize*2).div*size).mul*((bSize*2).div*size).mul*0*(bSize*2).div*size*A*B).fox_mult)*
+            ((bSize*2).div*size).mul*((bSize*2).div*(size*1).add).mul*((bSize*2).div*size).mul*(bSize*2).div*size*A*B).fox_mult)*
+            ((bSize*2).div*(size*1).add).mul*((bSize*2).div*size).mul*(bSize*2).div*(bSize*2).div*size*A*B).fox_mult)*
+            ((bSize*2).div*(size*1).add).mul*((bSize*2).div*(size*1).add).mul*((bSize*2).div*(size*1).add).mul*(bSize*2).div*size*A*B).fox_mult;
+            
+
+            Fun execute {
+                result = [1];
+                blockC = [2]; blockA = [3]; blockB = [4];
+                bSize = [5]; size = [6];
+
+                A = [7]; B = [8];
+                
+                C11 = (
+                    (((A*blockA).arrayGet)*((B*blockB).arrayGet)).mul*
+                    (((A*(blockA*1).add).arrayGet)*((B*(blockB*size).add).arrayGet)).mul
+                ).add;
+
+                C12 = (
+                    (((A*blockA).arrayGet)*((B*(blockB*1).add).arrayGet)).mul*
+                    (((A*(blockA*1).add).arrayGet)*((B*(((blockB*size).add)*1).add).arrayGet)).mul
+                ).add;
+
+                C21 = (
+                    (((A*(blockA*size).add).arrayGet)*((B*blockB).arrayGet)).mul*
+                    (((A*(((blockA*size).add)*1).add).arrayGet)*((B*(blockB*size).add).arrayGet)).mul
+                ).add;
+
+                C22 = (
+                    (((A*(blockA*size).add).arrayGet)*((B*(blockB*1).add).arrayGet)).mul*
+                    (((A*(((blockA*size).add)*1).add).arrayGet)*((B*(((blockB*size).add)*1).add).arrayGet)).mul
+                ).add;
+
+                @ = ((((result*blockC*C11).place*(blockC*1).add*C12).place*(blockC*size).add*C21).place*
+                
+                ((blockC*1).add*size).add*C22).place;
+                
+                Fun place {
+                    result = [1];
+                    index = [2];
+                    value = [3];
+                    @ = ((result*index).arrayGet*0.0).equal -> (result*index*value).arraySet,
+                    (result*index*((result*index).arrayGet*value).add).arraySet;
+                }
+            }
+        }
+    }
+}
 Application
-%factorial(6)
+% FoxAlgorithm(16, 2.0, 3.0)
