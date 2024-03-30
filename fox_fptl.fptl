@@ -32,17 +32,27 @@ Scheme FoxAlgorithm {
         c01 = (blockC * bSize2).add;           
         c10 = (blockC * (bSize2 * size).mul).add; 
         c11 = ((blockC * (bSize2 * size).mul).add * bSize2).add; 
+
+        a00 = blockA;
+        a01 = (blockA * bSize2).add;           
+        a10 = (blockA * (bSize2 * size).mul).add; 
+        a11 = ((blockA * (bSize2 * size).mul).add * bSize2).add; 
+
+        b00 = blockB;
+        b01 = (blockB * bSize2).add;           
+        b10 = (blockB * (bSize2 * size).mul).add; 
+        b11 = ((blockB * (bSize2 * size).mul).add * bSize2).add; 
         
         @ = (bSize * 2).equal->
             (result * blockC * blockA * blockB * bSize * size * A * B).execute,
-            ((((((((result * c00 * c00 * c00 * bSize2 * size * A * B).fox_mult*
-                            c00 * c01 * c01 * bSize2 * size * A * B).fox_mult*
-                            c01 * c00 * c10 * bSize2 * size * A * B).fox_mult*
-                            c01 * c01 * c11 * bSize2 * size * A * B).fox_mult* 
-                            c10 * c10 * c00 * bSize2 * size * A * B).fox_mult* 
-                            c10 * c11 * c01 * bSize2 * size * A * B).fox_mult* 
-                            c11 * c10 * c10 * bSize2 * size * A * B).fox_mult* 
-                            c11 * c11 * c11 * bSize2 * size * A * B
+            ((((((((result * c00 * a00 * b00 * bSize2 * size * A * B).fox_mult*
+                            c00 * a01 * b01 * bSize2 * size * A * B).fox_mult*
+                            c01 * a00 * b10 * bSize2 * size * A * B).fox_mult*
+                            c01 * a01 * b11 * bSize2 * size * A * B).fox_mult* 
+                            c10 * a10 * b00 * bSize2 * size * A * B).fox_mult* 
+                            c10 * a11 * b01 * bSize2 * size * A * B).fox_mult* 
+                            c11 * a10 * b10 * bSize2 * size * A * B).fox_mult* 
+                            c11 * a11 * b11 * bSize2 * size * A * B
             ).fox_mult;
             
 
@@ -140,4 +150,4 @@ Scheme FoxAlgorithm {
 	}
 }
 Application
-% FoxAlgorithm(512, 2.0, 5.0, 1)
+% FoxAlgorithm(4, 2.0, 5.0, 1)
