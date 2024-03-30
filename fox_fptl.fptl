@@ -2,15 +2,14 @@ Scheme FoxAlgorithm {
     N=[1]; fill_a=[2]; fill_b=[3]; show=[4];
     Nsqr=(N * N).mul; 
     
-    @ = (
-            "Matrix size = ".rawPrint * N.print *
-            "; fill_a = ".rawPrint * fill_a.print *
-            "; fill_b = ".rawPrint * fill_b.printLine
-        ) * 
-        ((show * 0).greater * (N * 10).lequal).and -> 
+    @ = ((show * 0).greater * (N * 10).lequal).and -> 
             ((zero * 0 * 0 * 0 * N * N * A * B).fox_mult * Nsqr * N).print_matr,
-            ((zero * 0 * 0 * 0 * N * N * A * B).fox_mult * Nsqr * N);
-       
+            (
+                (getCurrentTime *
+                        (zero * 0 * 0 * 0 * N * N * A * B).fox_mult).
+                ((getCurrentTime * [1]).sub * 1000000).div.print." ".rawPrint
+            );
+
     zero = (N * 0.0).fill_matr;
     A = (N * fill_a).t_ident_matr;
     B = (N * fill_b).t_ident_matr;
@@ -137,7 +136,6 @@ Scheme FoxAlgorithm {
         }
     }
 
-
     // Print matrix: [1] - matrix; [2] - size^2; [3] - rows count 
 	Fun print_matr {
 		N = ([2] * 1).sub;		
@@ -148,6 +146,7 @@ Scheme FoxAlgorithm {
                 ),
             [1];
 	}
+
 }
 Application
-% FoxAlgorithm(4, 2.0, 5.0, 1)
+% FoxAlgorithm(256, 2.0, 5.0, 1)
