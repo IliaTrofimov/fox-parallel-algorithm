@@ -11,6 +11,12 @@ private:
     size_t _sizeSqr;
 
 public:
+    Matrix(double* data, size_t size) {
+        this->_size = size;
+        this->_sizeSqr = size * size;
+        _data = data;
+    }
+
     Matrix(size_t size, double fill = 0) {
         this->_size = size;
         this->_sizeSqr = size * size;
@@ -22,6 +28,12 @@ public:
 
     ~Matrix() {
         delete[] _data;
+    }
+
+
+    // Get raw data array.
+    inline double* data() const {
+        return _data;
     }
 
     // Element at given offset.
@@ -38,6 +50,11 @@ public:
     // Matrix size.
     inline size_t size() const {
         return _size;
+    }
+
+    // Matrix size squared.
+    inline size_t size_sqr() const {
+        return _sizeSqr;
     }
 
     // Print matrix.
@@ -64,3 +81,69 @@ public:
         return true;
     }
 };
+
+
+// Default matrix multiplication
+// @param A: pointer to left matrix
+// @param B: pointer to right matrix
+Matrix* prod(Matrix* A, Matrix* B) {
+    if (A->size() != B->size())
+        return nullptr;
+
+    size_t size = A->size();
+    Matrix* C = new Matrix(size, 0);
+
+    for (size_t i = 0; i < size; ++i) {
+        for (size_t j = 0; j < size; ++j) {
+            for (size_t k = 0; k < size; ++k)
+                C->at(i, j) += A->at(i, k) * B->at(k, j);
+        }
+    }
+
+    return C;
+}
+
+// [Optimized] Default matrix multiplication. Uses linear matrix representation.
+// @param A: pointer to left matrix
+// @param B: pointer to right matrix
+Matrix* prod_opt(Matrix* A, Matrix* B) {
+    if (A->size() != B->size())
+        return nullptr;
+
+    size_t size = A->size();
+    Matrix* C = new Matrix(size, 0);
+
+    for (size_t i = 0; i < size; ++i) {
+        size_t stride = i * size;
+
+        for (size_t j = 0; j < size; ++j) {
+            size_t idx = stride + j;
+            for (size_t k = 0; k < size; ++k)
+                C->at(idx) += C->at(stride + k) * B->at(k * size + j);
+        }
+    }
+
+    return C;
+}
+
+// [Optimized] Default matrix multiplication. Uses linear matrix representation.
+// @param A: pointer to left matrix
+// @param B: pointer to right matrix
+// @param C: pointer to result matrix
+void prod_opt(Matrix* A, Matrix* B, Matrix*& C) {
+    if (A->size() != B->size())
+        return;
+
+    size_t size = A->size();
+    C = new Matrix(size, 0);
+
+    for (size_t i = 0; i < size; ++i) {
+        size_t stride = i * size;
+
+        for (size_t j = 0; j < size; ++j) {
+            size_t idx = stride + j;
+            for (size_t k = 0; k < size; ++k)
+                C->at(idx) += C->at(stride + k) * B->at(k * size + j);
+        }
+    }
+}

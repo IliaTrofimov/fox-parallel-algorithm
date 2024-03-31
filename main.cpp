@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -11,7 +13,7 @@ void benchamrk(int min_size, int max_size, int inc);
 void test_smoke(int size, int threads);
 
 
-int main(int argc, char** argv)
+int main2(int argc, char** argv)
 {
     int mode = 0;
 
@@ -73,7 +75,7 @@ void benchamrk(int min_size, int max_size, int inc) {
         }
     }
 
-    printf("\nOptimized versions\nDefault*\t\t");
+    printf("\nOptimized versions\nDefault*\t");
     for (int size = min_size; size <= max_size; size *= inc) {
         Matrix A(size, 123), B(size, 131);
 
